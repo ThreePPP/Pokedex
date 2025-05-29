@@ -16,6 +16,8 @@ RUN npm install
 # Copy source code
 COPY . .
 
+RUN npm install -g @angular/cli
+
 # Build Angular application
 RUN npm run build
 
@@ -26,5 +28,5 @@ EXPOSE 4444
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
   CMD curl -f http://localhost:4444/api/cards || exit 1
 
-#  Express server 
+#  Express server
 CMD ["node", "src/server/server.js"]
