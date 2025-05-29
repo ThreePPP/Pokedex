@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # Build Angular application
-RUN npm start
+RUN npm run build
 
 # Expose  port 4444
 EXPOSE 4444
