@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; // Import OnInit
+import { Component, OnInit } from '@angular/core'; // Import OnInit //new npm i
 import { PokemonService } from './service/pokemon.service';
 
 const COLORS = {
