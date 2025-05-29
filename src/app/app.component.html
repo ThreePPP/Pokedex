@@ -1,1 +1,132 @@
-<div id="root"></div>
+<div id="root">
+  <header id="header">My pokedex</header>
+
+  <section id="card">
+    <div *ngFor="let mainPokemon of mainPokemonList" class="pokemon-card">
+      <div class="pokemon-image-container">
+        <img
+          [src]="mainPokemon.imageUrl"
+          alt="{{ mainPokemon.name }}"
+          class="pokemon-image"
+        />
+      </div>
+      <div class="pokemon-details">
+        <h3>{{ mainPokemon.name }}</h3>
+        <div class="stat-group">
+          <div class="stat-bar">
+            <span>HP</span>
+            <div class="bar">
+              <div class="fill" [style.width.%]="gethp(mainPokemon)"></div>
+            </div>
+          </div>
+          <div class="stat-bar">
+            <span>Str</span>
+            <div class="bar">
+              <div class="fill" [style.width.%]="getStrength(mainPokemon)"></div>
+            </div>
+          </div>
+          <div class="stat-bar">
+            <span>Weak</span>
+            <div class="bar">
+              <div class="fill" [style.width.%]="getWeakness(mainPokemon)"></div>
+            </div>
+          </div>
+        </div>
+        <div class="happiness-wrapper" *ngIf="mainPokemon.hp">
+          <img
+            *ngFor="let i of [].constructor(gethappiness(mainPokemon))"
+            src="assets/cute.png"
+            alt="cute"
+            width="36"
+            height="36"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div id="pokeball-button" (click)="OpenModal()">
+      <div class="pokeball">
+        <div class="pokeball__top"></div>
+        <div class="pokeball__middle"></div>
+        <div class="pokeball__bottom"></div>
+        <div class="pokeball__button-outer">
+          <div class="pokeball__button-inner"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" *ngIf="isModalOpen" (click)="CloseModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="search-container">
+        <div class="search-wrapper">
+          <input
+            type="text"
+            placeholder="Find Pokemon"
+            [(ngModel)]="searchText"
+            (keyup)="searchPokemon()"
+          />
+        </div>
+        <img
+          src="../assets/search.png"
+          alt="search"
+          class="search-icon"
+          (click)="searchPokemon()"
+        />
+      </div>
+      <div class="pokemon-grid">
+        <div
+          *ngFor="let p of pokemonList"
+          class="pokemon-card"
+          [style.borderColor]="
+            p.types && p.types.length ? getColor(p.types[0]) : 'gray'
+          "
+        >
+          <div class="pokemon-image-container">
+            <img [src]="p.imageUrl" alt="{{ p.name }}" class="pokemon-image" />
+          </div>
+          <div class="pokemon-details">
+            <div class="name-add-row">
+              <h3>{{ p.name }}</h3>
+              <div class="add-button" (click)="addToMainList(p)">
+                <h1>Add</h1>
+              </div>
+            </div>
+            <div class="stat-bar">
+              <span>HP</span>
+              <div class="bar">
+                <div class="fill" [style.width.%]="gethp(p)"></div>
+              </div>
+            </div>
+
+            <div class="stat-bar">
+              <span>Str</span>
+              <div class="bar">
+                <div class="fill" [style.width.%]="getStrength(p)"></div>
+              </div>
+            </div>
+
+            <div class="stat-bar">
+              <span>Weak</span>
+              <div class="bar">
+                <div class="fill" [style.width.%]="getWeakness(p)"></div>
+              </div>
+            </div>
+
+            <div class="happiness-wrapper" *ngIf="p.hp">
+              <img
+                *ngFor="let i of [].constructor(gethappiness(p))"
+                src="assets/cute.png"
+                alt="cute"
+                width="48"
+                height="48"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
