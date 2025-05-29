@@ -32,5 +32,5 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../../dist/bn-pokedex/index.html"));
 });
 
-const PORT = process.env.PORT || 4200;
+const PORT = process.env.PORT || 4444;
 app.listen(PORT, () => console.log(`App running on port ${PORT}`));
