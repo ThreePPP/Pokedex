@@ -19,12 +19,12 @@ COPY . .
 # Build Angular application
 RUN npm start
 
-# Expose  port 4200
-EXPOSE 4200
+# Expose  port 4444
+EXPOSE 4444
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD curl -f http://localhost:4200/api/cards || exit 1
+  CMD curl -f http://localhost:4444/api/cards || exit 1
 
 #  Express server 
 CMD ["node", "src/server/server.js"]
